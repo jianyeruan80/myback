@@ -1,10 +1,81 @@
+
+
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout,$window,$ionicSideMenuDelegate) {
  $scope.leftToggle=function(){
-  
-  $("#wrapper").toggleClass("toggled");
+ $("#wrapper").toggleClass("toggled");
  }
+//*************/
+   var tmpList = [];
+  
+  for (var i = 1; i <= 5; i++){
+    tmpList.push({
+      text: 'Item ' + i,
+      value: i
+    });
+  }
+  
+  $scope.list = tmpList;
+  
+  
+  $scope.sortingLog = [];
+  
+  $scope.sortableOptions = {
+    activate: function() {
+        console.log("activate");
+    },
+    beforeStop: function() {
+        console.log("beforeStop");
+    },
+    change: function() {
+        console.log("change");
+    },
+    create: function() {
+        console.log("create");
+    },
+    deactivate: function() {
+        console.log("deactivate");
+    },
+    out: function() {
+        console.log("out");
+    },
+    over: function() {
+        console.log("over");
+    },
+    receive: function() {
+        console.log("receive");
+    },
+    remove: function() {
+        console.log("remove");
+    },
+    sort: function() {
+        console.log("sort");
+    },
+    start: function() {
+        console.log("start");
+    },
+    update: function(e, ui) {
+      console.log("update");
+      
+      var logEntry = tmpList.map(function(i){
+        return i.value;
+      }).join(', ');
+      $scope.sortingLog.push('Update: ' + logEntry);
+    },
+    stop: function(e, ui) {
+      console.log("stop");
+      //console.log(tmpList);
+      // this callback has the changed model
+      var logEntry = tmpList.map(function(i){
+        return i.value;
+      }).join(', ');
+      $scope.sortingLog.push('Stop: ' + logEntry);
+    }
+  };
+
+
+
       //$scope.dev_width = $window.innerWidth;
       //if($scope.dev_width>=800){$timeout(function(){$ionicSideMenuDelegate.toggleLeft();},0)}
 //$scope.shouldLeftSideMenuBeEnabled=function() {
@@ -63,3 +134,4 @@ angular.module('starter.controllers', [])
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
+ 
